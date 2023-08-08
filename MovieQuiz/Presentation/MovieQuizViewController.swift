@@ -33,7 +33,7 @@ final class MovieQuizViewController: UIViewController {
         let text: String
         let buttonText: String
     }
-    // Моки для данных квиза
+    // Mock-данные для квиза
     private let questions: [QuizQuestion] = [
         QuizQuestion(
             image:"The Godfather",
