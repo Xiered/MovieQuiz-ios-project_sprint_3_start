@@ -12,7 +12,7 @@ final class MovieQuizViewController: UIViewController {
     
     // Счетчик вопросов
     private var currentQuestionIndex: Int = 0
-    // Количество правильных ответов
+    // Счетчик правильных ответов
     private var correctAnswers: Int = 0
     
     // Структура для конвертации вопросов с мока
