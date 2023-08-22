@@ -7,7 +7,7 @@
 
 import Foundation
 
-class QuestionFactory {
+class QuestionFactory: QuestionFactoryProtocol {
     // Mock-данные для квиза
     private let questions: [QuizQuestion] = [
         QuizQuestion(
