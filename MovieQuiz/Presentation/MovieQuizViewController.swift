@@ -126,9 +126,9 @@ final class MovieQuizViewController: UIViewController {
         let givenAnswer = true
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
-   
-   
-        // Метод работы с результатами квиза
+    
+    
+    // Метод работы с результатами квиза
     private func show(quiz result: QuizResultsViewModel) {
         let alert = UIAlertController(
             title: result.title,
@@ -150,18 +150,18 @@ final class MovieQuizViewController: UIViewController {
                 self.show(quiz: viewModel)
             }
         }
-            alert.addAction(action)
-            
-            self.present(alert, animated: true, completion: nil)
-        }
-    }
-            
-            
-           
-            
+        alert.addAction(action)
         
-    
-    
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+
+
+
+
+
+
+
 
 /*
  Mock-данные
