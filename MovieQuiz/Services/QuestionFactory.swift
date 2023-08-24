@@ -10,16 +10,11 @@ import Foundation
 
 
 class QuestionFactory: QuestionFactoryProtocol {
-    func requestNextQuestion() {
-        
-    }
+   
     
     
-    weak var delegate: QuestionFactoryDelegate?
+  private weak var delegate: QuestionFactoryDelegate?
 
-    init(delegate: QuestionFactoryDelegate){
-        self.delegate = delegate
-    }
     
     // Mock-данные для квиза
     private let questions: [QuizQuestion] = [
@@ -66,11 +61,18 @@ class QuestionFactory: QuestionFactoryProtocol {
         
     ]
     
-    func requestNextQuestion() -> QuizQuestion? {
+    
+    init(delegate: QuestionFactoryDelegate){
+        self.delegate = delegate
+    }
+    
+    func requestNextQuestion() {
         guard let index = (0..<questions.count).randomElement() else {
-            return nil
+            delegate?.didReceiveNextQuestion(question: nil)
+            return
         }
-        return questions[safe: index]
+        let question = questions[safe: index]
+        delegate?.didReceiveNextQuestion(question: question)
     }
     
 }
