@@ -1,6 +1,6 @@
 import UIKit
 // Основной класс приложения
-final class MovieQuizViewController: UIViewController {
+final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     @IBOutlet weak private var textLabel: UILabel!
     @IBOutlet weak private var counterLabel: UILabel!
@@ -31,11 +31,19 @@ final class MovieQuizViewController: UIViewController {
         super.viewDidLoad()
         imageView.layer.cornerRadius = 20
         
+        questionFactory = QuestionFactory(delegate: self)
+        
         if let firstQuestion = questionFactory.requestNextQuestion() {
             currentQuestion = firstQuestion
             let viewModel = convert(model: firstQuestion)
             show(quiz: viewModel)
         }
+    }
+    
+    // MARK: - QuestionFactoryDelegate
+    
+    func didReceiveNextQuestion(question: QuizQuestion?) {
+        
     }
     
     // Метод для конвертации вопросов из мока
