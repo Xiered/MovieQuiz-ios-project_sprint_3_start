@@ -48,7 +48,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }
         currentQuestion = question
         let viewModel = convert(model: question)
-        show(quiz: viewModel)
+        DispatchQueue.main.async { [weak self] in
+            self?.show(quiz: viewModel)
+        }
+        
     }
     
     // Метод для конвертации вопросов из мока
