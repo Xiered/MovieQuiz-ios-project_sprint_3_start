@@ -26,6 +26,7 @@
 		C4C6D4372A963DCB00055665 /* QuestionFactoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C6D4362A963DCB00055665 /* QuestionFactoryDelegate.swift */; };
 		C4C6D4392A97E0D900055665 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C6D4382A97E0D900055665 /* AlertPresenter.swift */; };
 		C4C6D43B2A97E12A00055665 /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C6D43A2A97E12A00055665 /* AlertModel.swift */; };
+		C4C6D43D2A97E25E00055665 /* AlertPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C6D43C2A97E25E00055665 /* AlertPresenterProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		C4C6D4362A963DCB00055665 /* QuestionFactoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionFactoryDelegate.swift; sourceTree = "<group>"; };
 		C4C6D4382A97E0D900055665 /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		C4C6D43A2A97E12A00055665 /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
+		C4C6D43C2A97E25E00055665 /* AlertPresenterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenterProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				C4BAEE8A2A93996B00194233 /* QuestionFactory.swift */,
 				C4BAEE932A94EDDD00194233 /* QuestionFactoryProtocol.swift */,
 				C4C6D4362A963DCB00055665 /* QuestionFactoryDelegate.swift */,
+				C4C6D43C2A97E25E00055665 /* AlertPresenterProtocol.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */,
 				C4BAEE942A94EDDD00194233 /* QuestionFactoryProtocol.swift in Sources */,
 				C4C6D4372A963DCB00055665 /* QuestionFactoryDelegate.swift in Sources */,
+				C4C6D43D2A97E25E00055665 /* AlertPresenterProtocol.swift in Sources */,
 				C4C6D43B2A97E12A00055665 /* AlertModel.swift in Sources */,
 				AD1ABAB62831907B00B3E448 /* MovieQuizViewController.swift in Sources */,
 				C4BAEE8E2A93A78F00194233 /* QuizStepViewModel.swift in Sources */,
