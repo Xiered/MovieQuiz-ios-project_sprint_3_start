@@ -18,7 +18,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private let questionsAmount: Int = 10
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
-    
+    private var alertPresenter: AlertPresenter?
     
     
     
@@ -34,6 +34,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionFactory = QuestionFactory(delegate: self)
         
         questionFactory?.requestNextQuestion()
+        
+        alertPresenter = AlertPresenter(AlertViewController: self)
     }
     
     // MARK: - QuestionFactoryDelegate
@@ -137,26 +139,20 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     // Метод работы с результатами квиза
     private func show(quiz result: QuizResultsViewModel) {
-        let alert = UIAlertController(
-            title: result.title,
-            message: result.text,
-            preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: result.buttonText, style: .default)  { [weak self ] _ in
-            guard let self = self else { return }
-            self.currentQuestionIndex = 0
-            
-            // скидываем счётчик правильных ответов
-            self.correctAnswers = 0
-            
-            // заново показываем первый вопрос
-            self.questionFactory?.requestNextQuestion()
-            
-        }
-        alert.addAction(action)
-        
-        self.present(alert, animated: true, completion: nil)
-    }
+        let alertModel = AlertModel(title: result.title,
+                                      message: result.text,
+                                      buttonText: result.buttonText) { [weak self] _ in
+                   guard let self = self else {
+                       return
+                   }
+                       self.currentQuestionIndex = 0
+                       
+                       self.correctAnswers = 0
+                       
+                       self.questionFactory?.requestNextQuestion()
+                   }
+               alertPresenter?.showAlert(quiz: alertModel)
+           }
 }
 
 

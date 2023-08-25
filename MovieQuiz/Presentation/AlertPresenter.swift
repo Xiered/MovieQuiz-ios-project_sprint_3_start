@@ -10,4 +10,16 @@ import UIKit
 
 class AlertPresenter: AlertPresenterProtocol {
     private weak var AlertViewController: UIViewController?
+    
+    init(AlertViewController: UIViewController? = nil) {
+        self.AlertViewController = AlertViewController
+    }
+    
+    func showAlert(quiz result: AlertModel) {
+        let alert = UIAlertController(title: result.title, message: result.message, preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: result.buttonText, style: .default, handler: result.completion)
+        alert.addAction(action)
+        AlertViewController?.present(alert, animated: true, completion: nil)
+    }
 }
