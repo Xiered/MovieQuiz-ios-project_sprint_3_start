@@ -8,15 +8,22 @@
 import Foundation
 
 final class StatisticServiceTempImplementation: StatisticService {
-    func store(correct count: Int, totam amount: Int) {
+    func store(correct count: Int, total amount: Int) {
         <#code#>
     }
     
     var totalAccuracy: Double = 0.0
     
-    var gamesCount: Int
+    var gamesCount: Int = 0
     
-    var bestGame: GameRecord
+    var bestGame: GameRecord {
+        get {
+        
+        }
+        set {
+            
+        }
+    }
     
     
 }
