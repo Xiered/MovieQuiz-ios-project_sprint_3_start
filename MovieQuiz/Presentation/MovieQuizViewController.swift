@@ -105,8 +105,15 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     // Метод логики перехода в один из сценариев
     private func showNextQuestionOrResults() {
-        if currentQuestionIndex == questionsAmount - 1{
-            let text = "Ваш результат: \(correctAnswers) из 10"
+        if currentQuestionIndex == questionsAmount - 1 {
+            statisticService?.store(correct: correctAnswers, total: questionsAmount)
+            guard let bestGame = statisticService?.bestGame,
+                  let totalAccuracy = statisticService?.totalAccuracy,
+                  let gamesCount = statisticService?.gamesCount else {
+                return
+            }
+            
+            let text = "Ваш результат: \(correctAnswers)/\(questionsAmount)\n Количество сыгранных квизов: \(gamesCount)\n Рекорд: \(bestGame.correct)/\(bestGame.total) (\(bestGame.date.dateTimeString))\n Средняя точность: \(String(format: "%.2f", totalAccuracy))%"
             let viewModel = QuizResultsViewModel(
                 title: "Этот раунд окончен!",
                 text: text,
