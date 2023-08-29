@@ -8,6 +8,7 @@
 import Foundation
 
 protocol StatisticService {
+    func store(correct count: Int, totam amount: Int)
     var totalAccyracy: Double { get }
     var gamesCount: Int { get }
     var bestGame: GameRecord { get }
