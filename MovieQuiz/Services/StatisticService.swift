@@ -8,9 +8,10 @@
 import Foundation
 
 final class StatisticServiceTempImplementation: StatisticService {
-    func store(correct count: Int, total amount: Int) {
-        <#code#>
-    }
+    
+    // MARK: - Variables
+    
+    private let userDefaults = UserDefaults.standard
     
     var totalAccuracy: Double = 0.0
     
@@ -23,6 +24,12 @@ final class StatisticServiceTempImplementation: StatisticService {
         set {
             
         }
+    }
+    
+    // MARK: - Methods
+    
+    func store(correct count: Int, total amount: Int) {
+        <#code#>
     }
     
     
