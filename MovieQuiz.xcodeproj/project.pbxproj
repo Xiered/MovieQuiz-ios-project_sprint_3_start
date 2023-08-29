@@ -149,11 +149,11 @@
 		C4BAEE8C2A93A77300194233 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C4C6D43A2A97E12A00055665 /* AlertModel.swift */,
+				C40BB1752A9E0BEC006A06AF /* GameRecord.swift */,
 				C4BAEE8D2A93A78F00194233 /* QuizStepViewModel.swift */,
 				C4BAEE8F2A93A7A300194233 /* QuizResultsViewModel.swift */,
 				C4BAEE912A93A7B200194233 /* QuizQuestion.swift */,
-				C4C6D43A2A97E12A00055665 /* AlertModel.swift */,
-				C40BB1752A9E0BEC006A06AF /* GameRecord.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
