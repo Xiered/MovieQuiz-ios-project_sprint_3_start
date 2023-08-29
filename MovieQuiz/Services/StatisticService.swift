@@ -17,7 +17,13 @@ final class StatisticServiceTempImplementation: StatisticService {
         case correct, total, bestGame, gamesCount
     }
     
-    var totalAccuracy: Double = 0.0
+    var totalAccuracy: Double {
+        get {
+            let total = Double(userDefaults.integer(forKey: Keys.total.rawValue))
+            let correct = Double(userDefaults.integer(forKey: Keys.correct.rawValue))
+            return 100 * (correct / total)
+        }
+    }
     
     var gamesCount: Int = 0
     
