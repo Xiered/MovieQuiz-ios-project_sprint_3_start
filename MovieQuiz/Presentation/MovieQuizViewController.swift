@@ -19,6 +19,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertPresenter?
+    private var statisticService: StatisticService?
     
     
     
@@ -36,6 +37,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionFactory?.requestNextQuestion()
         
         alertPresenter = AlertPresenter(AlertViewController: self)
+        
+        statisticService = StatisticServiceTempImplementation()
     }
     
     // MARK: - QuestionFactoryDelegate
