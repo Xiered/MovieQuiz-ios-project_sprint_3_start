@@ -11,6 +11,14 @@ final class StatisticServiceTempImplementation: StatisticService {
     
     // MARK: - Variables
     
+    var correct: Int {
+            userDefaults.integer(forKey: Keys.correct.rawValue)
+    }
+    
+    var total: Int {
+        userDefaults.integer(forKey: Keys.total.rawValue)
+    }
+    
     private let userDefaults = UserDefaults.standard
     
     private enum Keys: String {
