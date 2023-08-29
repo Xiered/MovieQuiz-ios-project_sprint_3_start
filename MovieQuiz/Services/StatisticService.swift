@@ -12,7 +12,7 @@ final class StatisticServiceTempImplementation: StatisticService {
         <#code#>
     }
     
-    var totalAccyracy: Double
+    var totalAccuracy: Double = 0.0
     
     var gamesCount: Int
     
