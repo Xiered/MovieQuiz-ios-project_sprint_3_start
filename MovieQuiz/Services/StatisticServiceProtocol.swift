@@ -8,5 +8,7 @@
 import Foundation
 
 protocol StatisticService {
-    
+    var totalAccyracy: Double { get }
+    var gamesCount: Int { get }
+    var bestGame: GameRecord { get }
 }
