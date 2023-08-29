@@ -25,7 +25,14 @@ final class StatisticServiceTempImplementation: StatisticService {
         }
     }
     
-    var gamesCount: Int = 0
+    var gamesCount: Int {
+        get {
+            userDefaults.integer(forKey: Keys.gamesCount.rawValue)
+        }
+        set {
+            userDefaults.set(newValue, forKey: Keys.gamesCount.rawValue)
+        }
+    }
     
     var bestGame: GameRecord {
         get {
