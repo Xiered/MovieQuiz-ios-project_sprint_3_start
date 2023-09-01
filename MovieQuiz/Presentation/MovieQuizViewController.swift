@@ -15,7 +15,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertPresenter?
     private var statisticService: StatisticService?
-
+    
     
     
     // MARK: - Lifecycle
@@ -46,6 +46,21 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private func showLoadingIndicator () {
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
+    }
+    
+    private func hideLoadingIndicator() {
+        activityIndicator.stopAnimating()
+    }
+    
+    private func showNetworkError(message: String) {
+        hideLoadingIndicator()
+        let model = AlertModel(title: "Ошибка", message: message, buttonText: "Попробовать еще раз") { [weak self] _ in
+            guard let self = self else { return }
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            self.questionFactory?.requestNextQuestion()
+        }
+        alertPresenter?.showAlert(quiz: model)
     }
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
@@ -86,11 +101,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             title: result.title,
             message: result.text,
             buttonText: result.buttonText)
-            { [weak self] _ in
-                guard let self = self else { return }
-                self.currentQuestionIndex = 0
-                self.correctAnswers = 0
-                self.questionFactory?.requestNextQuestion()
+        { [weak self] _ in
+            guard let self = self else { return }
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            self.questionFactory?.requestNextQuestion()
         }
         alertPresenter?.showAlert(quiz: alertModel)
     }
@@ -98,32 +113,32 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     
     private func showNextQuestionOrResults() {
-                if currentQuestionIndex == questionsAmount - 1 {
-                    statisticService?.store(correct: correctAnswers, total: questionsAmount)
-                    guard let bestGame = statisticService?.bestGame,
-                          let totalAccuracy = statisticService?.totalAccuracy,
-                          let gamesCount = statisticService?.gamesCount else {
-                        return
-                    }
-            let text = "Ваш результат: \(correctAnswers)/\(questionsAmount)\n Количество сыгранных квизов: \(gamesCount)\n Рекорд: \(bestGame.correct)/\(bestGame.total) (\(bestGame.date.dateTimeString))\n Средняя точность: \(String(format: "%.2f", totalAccuracy))%"
-                            let viewModel = QuizResultsViewModel(
-                                title: "Этот раунд окончен!",
-                                text: text,
-                                buttonText: "Сыграть ещё раз")
-                            imageView.layer.borderColor = nil
-                            imageView.layer.borderWidth = 0
-                            show(quiz: viewModel)                } else {
-                    currentQuestionIndex += 1
-                    questionFactory?.requestNextQuestion()
-                }
+        if currentQuestionIndex == questionsAmount - 1 {
+            statisticService?.store(correct: correctAnswers, total: questionsAmount)
+            guard let bestGame = statisticService?.bestGame,
+                  let totalAccuracy = statisticService?.totalAccuracy,
+                  let gamesCount = statisticService?.gamesCount else {
+                return
             }
+            let text = "Ваш результат: \(correctAnswers)/\(questionsAmount)\n Количество сыгранных квизов: \(gamesCount)\n Рекорд: \(bestGame.correct)/\(bestGame.total) (\(bestGame.date.dateTimeString))\n Средняя точность: \(String(format: "%.2f", totalAccuracy))%"
+            let viewModel = QuizResultsViewModel(
+                title: "Этот раунд окончен!",
+                text: text,
+                buttonText: "Сыграть ещё раз")
+            imageView.layer.borderColor = nil
+            imageView.layer.borderWidth = 0
+            show(quiz: viewModel)                } else {
+                currentQuestionIndex += 1
+                questionFactory?.requestNextQuestion()
+            }
+    }
     
     
     private func showAnswerResult(isCorrect: Bool) {
         if isCorrect {
             correctAnswers += 1
         }
-       
+        
         imageView.layer.borderWidth = 8
         imageView.layer.borderColor = isCorrect ? UIColor.YPGreen.cgColor : UIColor.YPRed.cgColor
         setYesAndNoButtonsEnabled(is: false)
@@ -141,7 +156,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
-    }
+}
 
 /*
  Mock-данные
@@ -151,56 +166,56 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
  Настоящий рейтинг: 9,2
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: ДА
-
-
+ 
+ 
  Картинка: The Dark Knight
  Настоящий рейтинг: 9
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: ДА
-
-
+ 
+ 
  Картинка: Kill Bill
  Настоящий рейтинг: 8,1
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: ДА
-
-
+ 
+ 
  Картинка: The Avengers
  Настоящий рейтинг: 8
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: ДА
-
-
+ 
+ 
  Картинка: Deadpool
  Настоящий рейтинг: 8
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: ДА
-
-
+ 
+ 
  Картинка: The Green Knight
  Настоящий рейтинг: 6,6
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: ДА
-
-
+ 
+ 
  Картинка: Old
  Настоящий рейтинг: 5,8
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: НЕТ
-
-
+ 
+ 
  Картинка: The Ice Age Adventures of Buck Wild
  Настоящий рейтинг: 4,3
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: НЕТ
-
-
+ 
+ 
  Картинка: Tesla
  Настоящий рейтинг: 5,1
  Вопрос: Рейтинг этого фильма больше чем 6?
  Ответ: НЕТ
-
-
+ 
+ 
  Картинка: Vivarium
  Настоящий рейтинг: 5,8
  Вопрос: Рейтинг этого фильма больше чем 6?
