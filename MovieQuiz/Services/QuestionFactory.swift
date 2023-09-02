@@ -47,7 +47,7 @@ class QuestionFactory: QuestionFactoryProtocol {
                 var imageData = Data()
                 
                 do {
-                    imageData = try Data(contentsOf: movie.imageURL)
+                    imageData = try Data(contentsOf: movie.resizedImageUrl)
                 } catch {
                     print("Failed to load image")
                 }
