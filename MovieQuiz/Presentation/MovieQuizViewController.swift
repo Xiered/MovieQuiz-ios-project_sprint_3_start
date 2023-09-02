@@ -44,11 +44,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     func didLoadDataFromServer() {
-        
+        activityIndicator.isHidden = true
+        questionFactory?.requestNextQuestion()
     }
     
     func didFailToLoadData(with error: Error) {
-        
+        showNetworkError(message: error.localizedDescription)
     }
     
     private func showLoadingIndicator () {
