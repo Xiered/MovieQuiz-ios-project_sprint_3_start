@@ -10,9 +10,29 @@ import Foundation
 
 
 class QuestionFactory: QuestionFactoryProtocol {
-   
+    private let moviesLoader: MoviesLoading
+    private weak var delegate: QuestionFactoryDelegate?
+    private var movies: [MostPopularMovie] = []
     
+    init(moviesLoader: MoviesLoading, delegate: QuestionFactoryDelegate?) {
+        self.moviesLoader = moviesLoader
+        self.delegate = delegate
+    }
     
+    func loadData() {
+        moviesLoader.loadMovies { [weak self] result in
+            guard let self = self else {return}
+            switch result {
+            case .success(let mostPopularMovies):
+                self.movies = mostPopularMovies.items
+                self.delegate?.didLoadDataFromServer()
+            case .failure(let error):
+                self.delegate?.didFailToLoadData(with: error)
+            }
+        }
+    }
+    
+        /*
   private weak var delegate: QuestionFactoryDelegate?
 
     
@@ -60,7 +80,7 @@ class QuestionFactory: QuestionFactoryProtocol {
             correctAnswer: false),
         
     ]
-    
+    */
     
     init(delegate: QuestionFactoryDelegate){
         self.delegate = delegate
@@ -74,5 +94,6 @@ class QuestionFactory: QuestionFactoryProtocol {
         let question = questions[safe: index]
         delegate?.didReceiveNextQuestion(question: question)
     }
+         
     
 }
