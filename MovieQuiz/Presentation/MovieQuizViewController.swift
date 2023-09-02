@@ -24,10 +24,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 20
         
-        questionFactory = QuestionFactory(delegate: self)
+        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         questionFactory?.requestNextQuestion()
         alertPresenter = AlertPresenter(AlertViewController: self)
         statisticService = StatisticServiceTempImplementation()
+        questionFactory?.loadData()
+        showLoadingIndicator()
         
     }
     
