@@ -7,9 +7,26 @@
 
 import Foundation
 
+public enum CustomError: Error {
+    case emptyItems(errorMessage: String)
+    case imageLoadError
+}
+
+extension CustomError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .emptyItems(let errorMessage):
+            return NSLocalizedString(errorMessage, comment: "Client Error")
+        case .imageLoadError:
+            return NSLocalizedString("Image load error", comment: "Image load error")
+        }
+    }
+}
 
 
 class QuestionFactory: QuestionFactoryProtocol {
+    
+   
    
     
     private let moviesLoader: MoviesLoading
@@ -50,10 +67,23 @@ class QuestionFactory: QuestionFactoryProtocol {
                     imageData = try Data(contentsOf: movie.resizedImageUrl)
                 } catch {
                     print("Failed to load image")
+                    let error: Error = CustomError.imageLoadError
+                    self.delegate?.didFailToLoadData(with: error)
+                    return
                 }
+                let randomRating = Array(4...9).randomElement() ?? 5
                 let rating = Float(movie.rating) ?? 0
-                let text = "Рейтинг этого фильма больше чем 7?"
-                let correctAnswer = rating > 7
+                var text = ""
+                var correctAnswer = false
+                if randomRating % 2 == 0 {
+                    text = "Рейтинг этого фильма больше чем \(randomRating)"
+                    correctAnswer = rating > Float(randomRating)
+                }
+                else {
+                    text = "Рейтинг это фильма меньше чем \(randomRating)"
+                    correctAnswer = rating < Float(randomRating)
+                }
+                
                 let question = QuizQuestion(image: imageData, text: text, correctAnswer: correctAnswer)
                 
                 DispatchQueue.main.async { [weak self] in

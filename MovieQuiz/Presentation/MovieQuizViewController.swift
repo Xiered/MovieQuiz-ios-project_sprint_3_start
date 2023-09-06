@@ -13,30 +13,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private let questionsAmount: Int = 10
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
-    private var alertPresenter: AlertPresenter?
+    private var alertPresenter: AlertPresenterProtocol?
     private var statisticService: StatisticService?
     
     
     
-    // MARK: - Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 20
-        
-        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
-        questionFactory?.requestNextQuestion()
-        alertPresenter = AlertPresenter(AlertViewController: self)
-        statisticService = StatisticServiceTempImplementation()
-        questionFactory?.loadData()
-        showLoadingIndicator()
-        activityIndicator.hidesWhenStopped
-        activityIndicator.startAnimating()
-        alertPresenter = AlertPresenter(AlertViewController: self)
-        showLoadingIndicator()
-        questionFactory?.loadData()
-        
-    }
+    
     
     // MARK: - QuestionFactoryDelegate
     func didReceiveNextQuestion(question: QuizQuestion?) {
@@ -51,8 +33,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     func didLoadDataFromServer() {
-        // activityIndicator.isHidden = true
-        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
         questionFactory?.requestNextQuestion()
     }
     
@@ -61,8 +42,16 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     private func showLoadingIndicator () {
-      //  activityIndicator.isHidden = false
+        activityIndicator.isHidden = false
         activityIndicator.startAnimating()
+    }
+    
+     func didFailToLoadImage(with error: Error) {
+        DispatchQueue.main.async { [weak self] in
+            self?.activityIndicator.stopAnimating()
+            self?.currentQuestionIndex -= 1
+            self?.showImageLoadError(message: error.localizedDescription)
+        }
     }
     
     private func hideLoadingIndicator() {
@@ -71,14 +60,25 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     private func showNetworkError(message: String) {
         hideLoadingIndicator()
-        let model = AlertModel(title: "Ошибка", message: message, buttonText: "Попробовать еще раз") { [weak self] _ in
+        
+        let alertModel = AlertModel(title: "Ошибка", message: message, buttonText: "Попробовать еще раз") { [weak self] _ in
             guard let self = self else { return }
+            
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
             self.questionFactory?.requestNextQuestion()
         }
-        alertPresenter?.showAlert(quiz: model)
+        
+        alertPresenter?.showAlert(model: alertModel)
     }
+    
+    private func showImageLoadError(message: String) {
+        let alertModel = AlertModel(title:"Ошибка", message: message, buttonText: "Попробовать еще раз", completion: { [weak self] _ in
+            self?.showNextQuestionOrResults() })
+        alertPresenter?.showAlert(model: alertModel)
+    }
+
+
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         guard let currentQuestion = currentQuestion else {
@@ -124,7 +124,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             self.correctAnswers = 0
             self.questionFactory?.requestNextQuestion()
         }
-        alertPresenter?.showAlert(quiz: alertModel)
+        alertPresenter?.showAlert(model: alertModel)
     }
     
     
@@ -172,6 +172,24 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             image: UIImage(data: model.image) ?? UIImage(),
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
+    }
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 20
+        
+        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
+        questionFactory?.requestNextQuestion()
+      
+        statisticService = StatisticServiceTempImplementation()
+        questionFactory?.loadData()
+        showLoadingIndicator()
+       
+        alertPresenter = AlertPresenter(AlertViewController: self)
+        showLoadingIndicator()
+        questionFactory?.loadData()
+        
     }
 }
 
