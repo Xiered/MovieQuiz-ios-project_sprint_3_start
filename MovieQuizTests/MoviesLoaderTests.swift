@@ -13,14 +13,29 @@ import XCTest
 class MovieLoaderTests: XCTestCase {
     
     func testSuccessLoading() {
-        // When
         // Given
-        // Then
+        
+        let loader = MoviesLoader()
+        
+        // When
+        
+        let expectation = expectation(description: "Loading expectation")
+        loader.loadMovies { result in
+            // Then
+            switch result {
+            case .success(let movies):
+                expectation.fulfill()
+            case .failure(_):
+                XCTFail("Unexpected failure")
+            }
+        }
+        waitForExpectations(timeout: 1)
     }
+
     
     func testFailureLoading() {
-        // When
         // Given
+        // When
         // Then
     }
 }
