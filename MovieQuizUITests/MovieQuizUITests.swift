@@ -38,8 +38,19 @@ final class MovieQuizUITests: XCTestCase {
         
     }
     
-    func testScreenCast() {
+    func testYesButton() {
         
+        sleep(3)
+        
+        let firstPoster = app.images["Poster"]
+        
+        app.buttons["Yes"].tap()
+        
+        sleep(3)
+        
+        let secondPoster = app.images["Poste"]
+        
+        XCTAssertFalse(firstPoster == secondPoster)
     }
 
     
