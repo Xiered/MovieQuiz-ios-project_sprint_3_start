@@ -34,8 +34,8 @@
 		C4C6D4392A97E0D900055665 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C6D4382A97E0D900055665 /* AlertPresenter.swift */; };
 		C4C6D43B2A97E12A00055665 /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C6D43A2A97E12A00055665 /* AlertModel.swift */; };
 		C4C6D43D2A97E25E00055665 /* AlertPresenterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4C6D43C2A97E25E00055665 /* AlertPresenterProtocol.swift */; };
-		C4E1DB2F2AB5EC4900D2E699 /* MoviesLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E1DB2E2AB5EC4900D2E699 /* MoviesLoaderTests.swift */; };
-		C4E1DB372AB763DB00D2E699 /* MovieQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E1DB362AB763DB00D2E699 /* MovieQuizUITests.swift */; };
+		C4ED24AF2AB8AC5100615066 /* MovieQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E1DB362AB763DB00D2E699 /* MovieQuizUITests.swift */; };
+		C4ED24B02AB8AD4300615066 /* MoviesLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E1DB2E2AB5EC4900D2E699 /* MoviesLoaderTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -390,7 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C48039752AB4BD5400EBBA3F /* ArrayTests.swift in Sources */,
-				C4E1DB2F2AB5EC4900D2E699 /* MoviesLoaderTests.swift in Sources */,
+				C4ED24B02AB8AD4300615066 /* MoviesLoaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,7 +398,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4E1DB372AB763DB00D2E699 /* MovieQuizUITests.swift in Sources */,
+				C4ED24AF2AB8AC5100615066 /* MovieQuizUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
