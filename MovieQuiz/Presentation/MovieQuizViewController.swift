@@ -11,10 +11,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
   
     private var correctAnswers: Int = 0
     private var questionFactory: QuestionFactoryProtocol?
-    private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertPresenterProtocol?
     private var statisticService: StatisticService?
     private let presenter = MovieQuizPresenter()
+    private var currentQuestion: QuizQuestion?
     
     
     
@@ -80,19 +80,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
 
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        let givenAnswer = true
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        presenter.currentQuestion = currentQuestion
+        presenter.yesButtonClicked()
     }
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        let givenAnswer = false
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        presenter.currentQuestion = currentQuestion
+        presenter.noButtonClicked()
     }
     
     private func setYesAndNoButtonsEnabled(is state: Bool) {
@@ -150,7 +144,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     
-    private func showAnswerResult(isCorrect: Bool) {
+     func showAnswerResult(isCorrect: Bool) {
         if isCorrect {
             correctAnswers += 1
         }
@@ -183,6 +177,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         alertPresenter = AlertPresenter(AlertViewController: self) as any AlertPresenterProtocol
         showLoadingIndicator()
         questionFactory?.loadData()
+        
+        presenter.viewController = self
         
     }
 }
