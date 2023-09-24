@@ -97,7 +97,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         textLabel.text = step.question
     }
     
-    private func show(quiz result: QuizResultsViewModel) {
+     func show(quiz result: QuizResultsViewModel) {
         let alertModel = AlertModel(
             title: result.title,
             message: result.text,
@@ -145,7 +145,9 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         setYesAndNoButtonsEnabled(is: false)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             guard let self = self else { return }
-            self.showNextQuestionOrResults()
+            self.presenter.showNextQuestionOrResults()
+            self.presenter.correctAnswers = self.correctAnswers
+            self.presenter.questionFactory = self.questionFactory
             self.imageView.layer.borderColor = UIColor.clear.cgColor
             self.setYesAndNoButtonsEnabled(is: true)
         }
