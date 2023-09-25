@@ -14,7 +14,7 @@ class ArrayTest: XCTestCase {
     func testGetValueInRagne() throws {
         
         // Given
-        let array = [1, 2, 3,4, 5]
+        let array = [1, 1, 2, 3, 5]
         
         // When
         
