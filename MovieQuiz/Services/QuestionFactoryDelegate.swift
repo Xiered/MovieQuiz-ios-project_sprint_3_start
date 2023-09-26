@@ -14,7 +14,4 @@ protocol QuestionFactoryDelegate: AnyObject {
     
     func didFailToLoadData(with error: Error)
     
-    func didFailToLoadImage(with error: Error)
-    
-    
 }

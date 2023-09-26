@@ -23,11 +23,7 @@ extension CustomError: LocalizedError {
     }
 }
 
-
 class QuestionFactory: QuestionFactoryProtocol {
-    
-   
-   
     
     private let moviesLoader: MoviesLoading
     private weak var delegate: QuestionFactoryDelegate?
@@ -52,7 +48,6 @@ class QuestionFactory: QuestionFactoryProtocol {
             }
         }
     }
-        
         
         func requestNextQuestion() {
             DispatchQueue.global().async { [weak self] in
